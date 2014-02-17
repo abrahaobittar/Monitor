@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+//classe de conexao
 public class FabricaDeConexoes {
 
 	public Connection getConnection() {
