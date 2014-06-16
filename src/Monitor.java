@@ -7,17 +7,18 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-public class Monitor implements Runnable
+public class Monitor
 {
-	public void iniciaMonitor(){
+	public static void main(String args[]){
 
-		Path path = Paths.get(setDiretorio("c:\\VAREJO"));
+		Path path = Paths.get(setDiretorio("c:\\dados"));
 		WatchService ws = null;
-		Interface ui = new Interface();
+		//Interface ui = new Interface();
 
 		try {
 			ws = FileSystems.getDefault().newWatchService();
 			path.register(ws, StandardWatchEventKinds.ENTRY_CREATE);
+			path.register(ws, StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -29,9 +30,9 @@ public class Monitor implements Runnable
 				key = ws.take();
 				for (WatchEvent<?> event : key.pollEvents()) {
 					// Kind<?> kind = event.kind();
-					ui.setTexto("Novo arquivo adicionado => "+event.context().toString());
-				//*System.out.println("Novo arquivo inserido => "
-				//+ event.context().toString());
+//					ui.setTexto("Novo arquivo adicionado => "+event.context().toString());
+				System.out.println("Novo arquivo inserido => "
+				+ event.context().toString());
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
